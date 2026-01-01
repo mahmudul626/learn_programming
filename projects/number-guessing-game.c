@@ -15,28 +15,6 @@ int main() {
     printf("Enter Your Name: ");
     scanf("%1023s", user);
 
-    // FILE *fptr = fopen("player.txt", "r");
-    // if (!fptr) {
-        
-    //         FILE *fptr = fopen("player.txt", "w");
-        
-    //     if (!fptr)
-    //     {
-    //         printf("Failed to open file\n");
-    //         return 1;
-    //     }
-        
-    //     fclose(fptr);
-    // }
-    // fclose(fptr);
-
-    // FILE *fptr = fopen("player.txt", "r");
-    // if (!fptr)
-    //     {
-    //         printf("Failed to open file\n");
-    //         return 1;
-    //     }
-
     FILE *fptr = fopen("player.txt", "r");
     if (!fptr) {
         fptr = fopen("player.txt", "w");
