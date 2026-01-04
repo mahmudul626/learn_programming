@@ -61,6 +61,7 @@ int main() {
 
 
 void game_funtion(int *win, int *lost) {
+    char choice;
     int input, limit = 3;
     int secretNum = rand() % 10 + 1;
     printf("\t Number Guessing Game \n");
@@ -76,6 +77,12 @@ void game_funtion(int *win, int *lost) {
                    {
                     (*lost) ++;
                     printf("Out of limit\n");
+                    printf("Do you want to play more (y/n) :");
+                    scanf(" %c", &choice);
+                    if (choice == 'y')
+                    {
+                        game_funtion(win, lost);
+                    }
                     break;
                    } else if (secretNum < input)
                    {
@@ -87,6 +94,12 @@ void game_funtion(int *win, int *lost) {
                 } else {
                     (*win) ++;
                     printf("You win\n");
+                    printf("Do you want to play more (y/n) :");
+                    scanf(" %c", &choice);
+                    if (choice == 'y')
+                    {
+                        game_funtion(win, lost);
+                    }
                     break;
                 }
     }
