@@ -81,7 +81,7 @@ int main() {
 
 void game_funtion(int *win, int *lost) {
     char choice;
-    int input, limit = 3;
+    int input, limit = 3, prev = 0;
     int secretNum = rand() % 10 + 1;
     printf("\t Number Guessing Game \n");
     while(limit > 0)
@@ -98,35 +98,59 @@ void game_funtion(int *win, int *lost) {
         if (input != secretNum)
             {
                limit --;
-               if (limit == 0)
-               {
-                (*lost) ++;
-                printf("Out of limit\n");
-                printf("Do you want to play more (y/n) :");
-                scanf(" %c", &choice);
-                if (choice == 'y' || choice == 'Y')
-                {
-                    game_funtion(win, lost);
+               if (limit == 0)  {
+                            (*lost) ++;
+                            printf("Out of limit\n");
+                            printf("Do you want to play more (y/n) :");
+                            scanf(" %c", &choice);
+                            if (choice == 'y' || choice == 'Y')
+                                {
+                                    game_funtion(win, lost);
+                                }
+                            break;
+                } else if (secretNum < input)   {
+                            if(prev != 0) {
+
+                                if(abs(secretNum-input) < abs(secretNum-prev))
+                                {
+                                    printf("You're getting closer!\n");
+                                } else {
+                                    printf("You're getting farther!\n");
+                                }
+                                
+                            } else {
+                                printf("%d is too high \n", input);
+                            }
+
+                } else if (secretNum > input)   {
+                            if(prev != 0) {
+
+                                if(abs(secretNum-input) < abs(secretNum-prev))
+                                {
+                                    printf("You're getting closer!\n");
+                                } else {
+                                    printf("You're getting farther!\n");
+                                }
+                                
+                            } else {
+                                printf("%d is too low \n", input);
+                            }
                 }
-                break;
-               } else if (secretNum < input)
-               {
-                printf("%d is too high \n", input);
-               } else if (secretNum > input)
-               {
-                printf("%d is too low \n", input);
-               }
-            } else {
+        } else {
                 (*win) ++;
-                printf("You win\n");
+                if(limit == 3) {
+                    printf("Perfect Guess!\n");
+                } else {
+                    printf("You win\n");
+                }
                 printf("Do you want to play more (y/n) :");
                 scanf(" %c", &choice);
-                if (choice == 'y' || choice == 'Y')
-                {
+                if (choice == 'y' || choice == 'Y') {
                     game_funtion(win, lost);
                 }
                 break;
-            }
+        }
+    prev = input;
     }
 }
 
