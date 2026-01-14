@@ -90,18 +90,47 @@ void game_funtion(int *win, int *lost) {
     do
     {
         int input, limit = 3, prev = 0;
+        int hintUsed = 0;   // 0 = not used, 1 = used
         int secretNum = rand() % 10 + 1;
         printf("\t Number Guessing Game \n");
         while(limit > 0)
         {
-            printf("Chance : %d time \n", limit);
-            printf("Enter number : ");
+            printf("Chance : %d time | Hint Used: %s\n",
+            limit, hintUsed ? "YES" : "NO");
+            printf("Enter number (or -1 for hint): ");
 
             while (scanf("%d", &input) != 1) {
             printf("Error! Invalid input\n");
-            printf("Enter number : ");
+            printf("Enter number (or -1 for hint): ");
             while (getchar() != '\n'); 
             }
+
+            // Hint request
+            if (input == -1) {
+                if (hintUsed) {
+                    printf("Hint already used!\n");
+                    continue;
+                }
+
+                // Hint 1: even / odd
+                if (secretNum % 2 == 0)
+                    printf("Hint: Number is even\n");
+                else
+                    printf("Hint: Number is odd\n");
+
+                // Hint 2: range hint
+                int low = secretNum - 2;
+                int high = secretNum + 2;
+
+                if (low < 1) low = 1;
+                if (high > 10) high = 10;
+
+                printf("Hint: Between %d and %d\n", low, high);
+
+                hintUsed = 1;
+                continue;   // guess consume হবে না
+            }
+
 
             if (input != secretNum)
                 {
@@ -147,7 +176,9 @@ void game_funtion(int *win, int *lost) {
                     }
                     break;
             }
+        if (input != -1)
         prev = input;
+
         }
 
     printf("Do you want to play more (y/n) :");
